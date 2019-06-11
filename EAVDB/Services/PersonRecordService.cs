@@ -13,12 +13,12 @@ namespace EAVDB.Services
 
         public bool Exists(int personId, int id)
         {
-            return Context.Set<Record>().Any(r => r.EntityId == id && r.Person.EntityId == personId);
+            return Context.Records.Any(r => r.EntityId == id && r.Person.EntityId == personId);
         }
         
         public bool Create(int personId, Record entity)
         {
-            if (!Context.Set<Record>().Any(r => r.EntityId == personId))
+            if (!Context.Records.Any(r => r.EntityId == personId))
                 return false;
             entity.PersonId = personId;
             Context.Add(entity);
@@ -28,7 +28,7 @@ namespace EAVDB.Services
 
         public IEnumerable<Record> ReadPersonRecords(int personId)
         {
-            return Context.Set<Person>()
+            return Context.Persons
                 .Include(p => p.Records)
                     .ThenInclude(r => r.Attributes)
                 .SingleOrDefault(p => p.EntityId == personId)?.Records;
@@ -36,7 +36,7 @@ namespace EAVDB.Services
 
         public Record Read(int personId, int id)
         {
-            return Context.Set<Record>()
+            return Context.Records
                 .Include(r => r.Attributes)
                 .SingleOrDefault(r => r.EntityId == id && r.Person.EntityId == personId);
         }

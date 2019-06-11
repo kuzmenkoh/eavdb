@@ -20,7 +20,7 @@ namespace FitnessCrud.Controllers.SerializeModels
         {
             Id = entity.EntityId;
             foreach (var attribute in entity.Attributes)
-                Attributes[attribute.Name] = attribute.Value;
+                Attributes[attribute.Name] = attribute.GetValue();
             return this;
         }
     }

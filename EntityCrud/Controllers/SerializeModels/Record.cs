@@ -13,11 +13,17 @@ namespace EntityCrud.Controllers.SerializeModels
             return result;
         }
 
-        public Record FromRecord(M.Record record)
+        protected void FillFromRecord(M.Record record)
         {
-            FromEntity(record);
+            FillFromEntity(record);
             PersonId = record.PersonId;
-            return this;
+        }
+
+        public static Record FromRecord(M.Record record)
+        {
+            var result = new Record();
+            result.FillFromRecord(record);
+            return result;
         }
     }
 }

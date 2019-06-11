@@ -13,7 +13,7 @@ namespace EAVDB.Services
         
         public override Person Read(int id)
         {
-            return Context.Set<Person>()
+            return Context.Persons
                 .Include(p => p.Attributes)
                 .Include(p => p.Records)
                     .ThenInclude(r => r.Attributes)
@@ -22,7 +22,7 @@ namespace EAVDB.Services
 
         public override IEnumerable<Person> Read()
         {
-            return Context.Set<Person>()
+            return Context.Persons
                 .Include(p => p.Attributes)
                 .Include(p => p.Records)
                     .ThenInclude(r => r.Attributes);

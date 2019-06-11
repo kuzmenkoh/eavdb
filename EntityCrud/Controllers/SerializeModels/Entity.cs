@@ -6,22 +6,30 @@ namespace EntityCrud.Controllers.SerializeModels
     public class Entity
     {
         public int Id { get; set; }
-        public Dictionary<string, object> Attributes { get; set; } = new Dictionary<string, object>();
+        public Dictionary<string, object> Attributes { get; set; }
 
         public TEntity ToEntity<TEntity>() where TEntity : Entity<TEntity>, new()
         {
             var result = new TEntity {EntityId = Id};
-            foreach (var pair in Attributes)
-                result[pair.Key] = pair.Value;
+            if (Attributes != null)
+            {
+                result.Attributes = new List<Attribute<TEntity>>();
+                foreach (var pair in Attributes)
+                    result.SetAttribute(pair.Key, pair.Value);
+            }
+
             return result;
         }
 
-        public Entity FromEntity<TEntity>(TEntity entity) where TEntity : Entity<TEntity>
+        protected void FillFromEntity<TEntity>(TEntity entity) where TEntity : Entity<TEntity>
         {
             Id = entity.EntityId;
-            foreach (var attribute in entity.Attributes)
-                Attributes[attribute.Name] = attribute.Value;
-            return this;
+            if (entity.Attributes != null)
+            {
+                Attributes = new Dictionary<string, object>();
+                foreach (var attribute in entity.Attributes)
+                    Attributes[attribute.Name] = attribute.GetValue();
+            }
         }
     }
 }

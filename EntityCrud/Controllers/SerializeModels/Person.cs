@@ -16,17 +16,23 @@ namespace EntityCrud.Controllers.SerializeModels
             var result = ToEntity<M.Person>();
             result.Name = Name;
             result.Surname = Surname;
-            result.Records = Records.Select(r => r.ToRecord()).ToList();
+            result.Records = Records?.Select(r => r.ToRecord()).ToList();
             return result;
         }
 
-        public Person FromPerson(M.Person person)
+        protected void FillFromPerson(M.Person person)
         {
-            FromEntity(person);
+            FillFromEntity(person);
             Name = person.Name;
             Surname = person.Surname;
-            Records = person.Records.Select(r => new Record().FromRecord(r)).ToList();
-            return this;
+            Records = person.Records?.Select(Record.FromRecord).ToList();
+        }
+
+        public static Person FromPerson(M.Person person)
+        {
+            var result = new Person();
+            result.FillFromPerson(person);
+            return result;
         }
     }
 }

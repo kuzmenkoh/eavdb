@@ -28,7 +28,6 @@ namespace EAVDB.Models
             modelBuilder.Entity<TEntity>()
                 .HasKey(p => p.EntityId);
             modelBuilder.Entity<Attribute<TEntity>>()
-                .Ignore(a => a.Value)
                 .HasKey(a => new { EntityID = a.EntityId, a.Name });
             modelBuilder.Entity<Attribute<TEntity>>()
                 .HasOne(a => a.Entity)

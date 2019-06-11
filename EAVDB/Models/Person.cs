@@ -7,7 +7,7 @@ namespace EAVDB.Models
 {
     public class Person : Entity<Person>
     {
-        public IEnumerable<Record> Records { get; set; } = new List<Record>();
+        public IEnumerable<Record> Records { get; set; }
         
         // ------- Various common or required user attributes should be in this model, placed outside of EAV ------- //
         public string Name { get; set; }

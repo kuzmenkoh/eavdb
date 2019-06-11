@@ -4,6 +4,6 @@
     {
         public string StringValue { get; set; }
 
-        public override object Value => StringValue;
+        public override object GetValue() => StringValue;
     }
 }

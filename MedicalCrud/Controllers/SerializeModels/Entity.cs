@@ -6,7 +6,7 @@ namespace MedicalCrud.Controllers.SerializeModels
     public class Entity
     {
         public int Id { get; set; }
-        public Dictionary<string, object> Attributes { get; set; } = new Dictionary<string, object>();
+        public Dictionary<string, object> Attributes { get; set; }
 
         public TEntity ToEntity<TEntity>() where TEntity : Entity<TEntity>, new()
         {
@@ -20,7 +20,7 @@ namespace MedicalCrud.Controllers.SerializeModels
         {
             Id = entity.EntityId;
             foreach (var attribute in entity.Attributes)
-                Attributes[attribute.Name] = attribute.Value;
+                Attributes[attribute.Name] = attribute.GetValue();
             return this;
         }
     }

@@ -22,7 +22,7 @@ namespace EntityCrud.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Record>> Get()
         {
-            return Ok(_entityService.Read().Select(p => new Record().FromRecord(p)).ToList());
+            return Ok(_entityService.Read().Select(Record.FromRecord).ToList());
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace EntityCrud.Controllers
             var record = _entityService.Read(id);
             if (record == null)
                 return NotFound();
-            return Ok(new Record().FromRecord(record));
+            return Ok(Record.FromRecord(record));
         }
 
         /// <summary>

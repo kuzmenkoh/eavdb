@@ -10,6 +10,6 @@ namespace EAVDB.Models
         
         public TEntity Entity { get; set; }
 
-        public abstract object Value { get; }
+        public abstract object GetValue();
     }
 }

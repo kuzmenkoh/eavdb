@@ -26,7 +26,7 @@ namespace EntityCrud.Controllers
             var records = _recordService.ReadPersonRecords(personId);
             if (records == null)
                 return NotFound();
-            return Ok(records.Select(r => new Record().FromRecord(r)).ToList());
+            return Ok(records.Select(Record.FromRecord).ToList());
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace EntityCrud.Controllers
             var record = _recordService.Read(personId, id);
             if (record == null)
                 return NotFound();
-            return Ok(new Record().FromRecord(record));
+            return Ok(Record.FromRecord(record));
         }
 
         /// <summary>
