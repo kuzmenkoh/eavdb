@@ -26,7 +26,7 @@ namespace FitnessCrud.Controllers
             var records = _recordService.ReadPersonRecords(personId);
             if (records == null)
                 return NotFound();
-            return Ok(records.Select(r => new Section().FromRecord(r)).ToList());
+            return Ok(records.Select(Section.FromRecord).ToList());
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace FitnessCrud.Controllers
             var record = _recordService.Read(personId, id);
             if (record == null)
                 return NotFound();
-            return Ok(new Section().FromRecord(record));
+            return Ok(Section.FromRecord(record));
         }
 
         /// <summary>

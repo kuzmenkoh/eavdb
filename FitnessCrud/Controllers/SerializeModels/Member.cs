@@ -15,17 +15,23 @@ namespace FitnessCrud.Controllers.SerializeModels
             var result = ToEntity<M.Person>();
             result.Name = Name;
             result.Surname = Surname;
-            result.Records = Sections.Select(r => r.ToRecord()).ToList();
+            result.Records = Sections?.Select(r => r.ToRecord()).ToList();
             return result;
         }
 
-        public Member FromPerson(M.Person person)
+        protected void FillFromPerson(M.Person person)
         {
-            FromEntity(person);
+            FillFromEntity(person);
             Name = person.Name;
             Surname = person.Surname;
-            Sections = person.Records.Select(r => new Section().FromRecord(r)).ToList();
-            return this;
+            Sections = person.Records?.Select(Section.FromRecord).ToList();
+        }
+
+        public static Member FromPerson(M.Person person)
+        {
+            var result = new Member();
+            result.FillFromPerson(person);
+            return result;
         }
     }
 }

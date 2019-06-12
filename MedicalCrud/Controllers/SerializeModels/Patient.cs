@@ -15,17 +15,23 @@ namespace MedicalCrud.Controllers.SerializeModels
             var result = ToEntity<M.Person>();
             result.Name = Name;
             result.Surname = Surname;
-            result.Records = Operations.Select(r => r.ToRecord()).ToList();
+            result.Records = Operations?.Select(r => r.ToRecord()).ToList();
             return result;
         }
 
-        public Patient FromPerson(M.Person person)
+        protected void FillFromPerson(M.Person person)
         {
-            FromEntity(person);
+            FillFromEntity(person);
             Name = person.Name;
             Surname = person.Surname;
-            Operations = person.Records.Select(r => new Operation().FromRecord(r)).ToList();
-            return this;
+            Operations = person.Records?.Select(Operation.FromRecord).ToList();
+        }
+
+        public static Patient FromPerson(M.Person person)
+        {
+            var result = new Patient();
+            result.FillFromPerson(person);
+            return result;
         }
     }
 }

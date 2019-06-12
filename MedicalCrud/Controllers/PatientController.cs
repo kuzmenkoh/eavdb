@@ -23,7 +23,7 @@ namespace MedicalCrud.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Patient>> Get()
         {
-            return Ok(_entityService.Read().Select(p => new Patient().FromPerson(p)).ToList());
+            return Ok(_entityService.Read().Select(Patient.FromPerson).ToList());
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace MedicalCrud.Controllers
             var person = _entityService.Read(id);
             if (person == null)
                 return NotFound();
-            return Ok(new Patient().FromPerson(person));
+            return Ok(Patient.FromPerson(person));
         }
 
         /// <summary>

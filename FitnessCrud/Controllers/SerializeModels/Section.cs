@@ -13,11 +13,17 @@ namespace FitnessCrud.Controllers.SerializeModels
             return result;
         }
 
-        public Section FromRecord(M.Record record)
+        protected void FillFromRecord(M.Record record)
         {
-            FromEntity(record);
+            FillFromEntity(record);
             MemberId = record.PersonId;
-            return this;
+        }
+
+        public static Section FromRecord(M.Record record)
+        {
+            var result = new Section();
+            result.FillFromRecord(record);
+            return result;
         }
     }
 }

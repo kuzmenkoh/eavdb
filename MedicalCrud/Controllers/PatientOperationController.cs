@@ -26,7 +26,7 @@ namespace MedicalCrud.Controllers
             var records = _recordService.ReadPersonRecords(personId);
             if (records == null)
                 return NotFound();
-            return Ok(records.Select(r => new Operation().FromRecord(r)).ToList());
+            return Ok(records.Select(Operation.FromRecord).ToList());
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace MedicalCrud.Controllers
             var record = _recordService.Read(personId, id);
             if (record == null)
                 return NotFound();
-            return Ok(new Operation().FromRecord(record));
+            return Ok(Operation.FromRecord(record));
         }
 
         /// <summary>

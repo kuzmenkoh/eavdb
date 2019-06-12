@@ -13,11 +13,17 @@ namespace MedicalCrud.Controllers.SerializeModels
             return result;
         }
 
-        public Operation FromRecord(M.Record record)
+        protected void FillFromRecord(M.Record record)
         {
-            FromEntity(record);
+            FillFromEntity(record);
             PatientId = record.PersonId;
-            return this;
+        }
+
+        public static Operation FromRecord(M.Record record)
+        {
+            var result = new Operation();
+            result.FillFromRecord(record);
+            return result;
         }
     }
 }

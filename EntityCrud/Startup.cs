@@ -40,7 +40,8 @@ namespace EntityCrud
                 c.SwaggerDoc("v1", new Info { Title = "EntityCrud", Version = "v1" });
                 c.IncludeXmlComments(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SwaggerAPI.xml"));
                 c.MapType<Dictionary<string, object>>(
-                    () => new Schema { Type = "object", AdditionalProperties = new Schema()});
+                    () => new Schema { Type = "object", AdditionalProperties = new Schema
+                        { Description = "Supported values: int and string"}});
             });
         }
         

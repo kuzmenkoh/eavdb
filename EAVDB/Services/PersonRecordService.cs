@@ -43,7 +43,10 @@ namespace EAVDB.Services
 
         public bool Update(int personId, int id, Record entity)
         {
-            return Exists(personId, id) && Update(id, entity);
+            if (!Exists(personId, id))
+                return false;
+            entity.PersonId = personId;
+            return Update(id, entity);
         }
 
         public bool Delete(int personId, int id)

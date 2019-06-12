@@ -23,7 +23,7 @@ namespace FitnessCrud.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Member>> Get()
         {
-            return Ok(_entityService.Read().Select(p => new Member().FromPerson(p)).ToList());
+            return Ok(_entityService.Read().Select(Member.FromPerson).ToList());
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace FitnessCrud.Controllers
             var person = _entityService.Read(id);
             if (person == null)
                 return NotFound();
-            return Ok(new Member().FromPerson(person));
+            return Ok(Member.FromPerson(person));
         }
 
         /// <summary>
